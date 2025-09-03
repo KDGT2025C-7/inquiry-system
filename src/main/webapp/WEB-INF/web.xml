@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
+  <display-name>inquiry-system</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>Inquiry</display-name>
+    <servlet-name>Inquiry</servlet-name>
+    <servlet-class>com.example.inquiry.Inquiry</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Inquiry</servlet-name>
+    <url-pattern>/none</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InquiryDAO</display-name>
+    <servlet-name>InquiryDAO</servlet-name>
+    <servlet-class>com.example.inquiry.InquiryDAO</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InquiryDAO</servlet-name>
+    <url-pattern>/InquiryDAO</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InquiryServlet</display-name>
+    <servlet-name>InquiryServlet</servlet-name>
+    <servlet-class>com.example.inquiry.InquiryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InquiryServlet</servlet-name>
+    <url-pattern>/inquiry</url-pattern>
+  </servlet-mapping>
+</web-app>
