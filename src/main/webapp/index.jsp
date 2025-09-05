@@ -12,6 +12,10 @@
 <body> 
 <div class="container"> 
     <h1>お問い合わせフォーム</h1> 
+    <a href="../inquiry-system/touroku">登録</a>
+    <c:if test="${sessionScope.pal == 'join'}">
+    <a href="../inquiry-system/settei">設定</a>
+    </c:if>
     <form action="${inquiryUrl}" method="post" onsubmit="return validateForm()" enctype="multipart/form-data"> 
         <p> 
             <label for="name">名前:</label> 
@@ -34,6 +38,16 @@
             <input type="file" id="attachment" name="attachment"> 
             <span class="error-message"><c:out value='${errorMessage}' /></span> 
         </p> 
+        <label for="newaaa">宛先:</label> 
+        <select id="status-${status.count}" name="newaaa"> 
+                                <option value="ヘルプデスク" selected>ヘルプデスク</option> 
+                                <option value="先生へ" >先生へ</option> 
+                                <option value="店舗へ" >店舗へ</option> 
+                                <option value="自治体へ" >自治体へ</option> 
+                                <option value="宿題" >宿題</option>
+                                <option value="バグ" >バグ</option>
+                                <option value="資料請求" >資料請求</option>
+                            </select> 
         <p> 
             <label for="captcha">スパム対策: <c:out value='${captchaQuestion}' /></label> 
             <input type="text" id="captcha" name="captcha" required> 

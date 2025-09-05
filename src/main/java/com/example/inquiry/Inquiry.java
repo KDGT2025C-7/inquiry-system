@@ -10,6 +10,7 @@ public class Inquiry {
     private String status; 
     private int qqakey;
     private Part filenamePart;
+    private String aaa;
     public Inquiry() { 
         this.status = "新規"; 
     } 
@@ -64,5 +65,11 @@ public class Inquiry {
     }
     public Part getFileNamePart(){
     	return filenamePart;
+    }
+    public void setAaa(String aaa) {
+    	this.aaa = aaa;
+    }
+    public String getAaa(){
+    	return aaa;
     }
 }

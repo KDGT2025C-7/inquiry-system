@@ -6,7 +6,7 @@
     <title>エラー</title>
 </head>
 <body>
-    <h1>エラーが発生しました</h1>
+    <h1>エラーが発生しました 戻る時chaptya出ません</h1>
     <p>${errorMessage}</p>
     <a href="index.jsp">戻る</a>
 </body>

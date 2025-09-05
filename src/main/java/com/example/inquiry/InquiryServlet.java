@@ -48,7 +48,7 @@ IOException {
     		String user = "a";
     		String password = "78459_ki";
     		try (Connection connection = DriverManager.getConnection(url, user, password);
-    				PreparedStatement statement = connection.prepareStatement("SELECT name, male, content, file, status, id FROM qqa ORDER BY id ASC");
+    				PreparedStatement statement = connection.prepareStatement("SELECT name, male, content, file, status, id, aaa FROM qqa ORDER BY id ASC");
     				ResultSet results = statement.executeQuery()){
     			List<Inquiry> inquiries = Collections.synchronizedList(new ArrayList<>()); 
     			while (results.next()) {
@@ -58,6 +58,7 @@ IOException {
     				String file = results.getString("file");
     				String newStatus = results.getString("status");
     				Integer id = results.getInt("id");
+    				String aaa = results.getString("aaa");
     				Inquiry inquiry = new Inquiry(); 
     	            inquiry.setName(name); 
     	            inquiry.setEmail(male); 
@@ -65,6 +66,7 @@ IOException {
     	            inquiry.setAttachmentFileName(file);
     	            inquiry.setStatus(newStatus);
     	            inquiry.setQqaKey(id);
+    	            inquiry.setAaa(aaa);
     	            inquiries.add(inquiry);
     			}
     			req.setAttribute("inquiries", new ArrayList<>(inquiries)); 
@@ -144,13 +146,14 @@ IOException {
                 String url = "jdbc:postgresql://localhost/qqq";
         		String user = "a";
         		String password = "78459_ki";
-        		String sql = "INSERT INTO qqa (name, male, content, file, filepart) VALUES (?, ?, ?, ?, ?)";
+        		String sql = "INSERT INTO qqa (name, male, content, file, filepart, aaa) VALUES (?, ?, ?, ?, ?, ?)";
         		try (Connection connection = DriverManager.getConnection(url, user, password);
         				PreparedStatement statement = connection.prepareStatement(sql)){
         					statement.setString(1, inquiry.getName());
         		            statement.setString(2, inquiry.getEmail());
         		            statement.setString(3, inquiry.getContent());
         		            statement.setString(4, inquiry.getAttachmentFileName());
+        		            statement.setString(6, inquiry.getAaa());
         		            byte[] fileBytes = null;
         	                if (filePar != null && filePar.getSize() > 0) {
         	                    try (InputStream inputStream = filePar.getInputStream()) {
@@ -207,6 +210,7 @@ IOException {
             String name = req.getParameter("name"); 
             String email = req.getParameter("email"); 
             String content = req.getParameter("content");
+            String newaaa = req.getParameter("newaaa");
             String captchaInput = req.getParameter("captcha"); 
             String fileName = null; 
             Part filePart = null;
@@ -228,6 +232,7 @@ e.getMessage());
             inquiry.setContent(content); 
             inquiry.setAttachmentFileName(fileName); 
             inquiry.setFileNamePart(filePart);
+            inquiry.setAaa(newaaa);
             Map<String, String> errors = new HashMap<>(); 
             if (name == null || name.trim().isEmpty()) { 
                 errors.put("name", "名前は必須です。"); 
@@ -255,6 +260,7 @@ e.getMessage());
                 req.setAttribute("email", email); 
                 req.setAttribute("content", content); 
                 req.setAttribute("attachmentFileName", fileName); 
+                req.setAttribute("newaaa", newaaa);
                 RequestDispatcher rd = req.getRequestDispatcher("/jsp/confirm.jsp"); 
                 rd.forward(req, resp); 
             } 

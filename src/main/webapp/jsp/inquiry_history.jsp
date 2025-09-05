@@ -10,14 +10,14 @@
 <body> 
     <div class="container"> 
         <h1>お問い合わせ履歴</h1> 
- 
         <c:choose> 
             <c:when test="${not empty inquiries}"> 
                 <c:forEach var="inquiry" items="${inquiries}" varStatus="status"> 
-                    <div class="inquiry-item"> 
+                    <div class="inquiry-item">
                         <h3>お問い合わせ #${status.count}</h3> 
                         <p><strong>名前:</strong> <c:out value="${inquiry.name}"/></p> 
                         <p><strong>メールアドレス:</strong> <c:out value="${inquiry.email}"/></p> 
+                        <p><strong>宛先:</strong> <c:out value="${inquiry.aaa}"/></p>
                         <p><strong>内容:</strong></p> 
                         <pre><c:out value="${inquiry.content}"/></pre> 
                         <p><strong>添付ファイル:</strong> 

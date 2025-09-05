@@ -24,6 +24,7 @@
                     なし 
                 <% } %> 
             </p> 
+            <p><strong>宛先:</strong> <%= request.getAttribute("newaaa") %></p> 
         </div> 
  
         <form action="../inquiry-system/inquiry" method="post"> 

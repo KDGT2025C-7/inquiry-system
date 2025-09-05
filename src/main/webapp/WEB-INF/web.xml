@@ -39,4 +39,34 @@
     <servlet-name>InquiryServlet</servlet-name>
     <url-pattern>/inquiry</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>tourokuServlet</display-name>
+    <servlet-name>tourokuServlet</servlet-name>
+    <servlet-class>com.example.inquiry.tourokuServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>tourokuServlet</servlet-name>
+    <url-pattern>/touroku</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>setteiServlet</display-name>
+    <servlet-name>setteiServlet</servlet-name>
+    <servlet-class>com.example.inquiry.setteiServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>setteiServlet</servlet-name>
+    <url-pattern>/settei</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>nyusitu</display-name>
+    <servlet-name>nyusitu</servlet-name>
+    <servlet-class>com.example.inquiry.nyusitu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>nyusitu</servlet-name>
+    <url-pattern>/nyusitu</url-pattern>
+  </servlet-mapping>
 </web-app>
