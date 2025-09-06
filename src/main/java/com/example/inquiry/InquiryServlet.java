@@ -42,15 +42,18 @@ public class InquiryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, 
 IOException { 
         String action = req.getParameter("action"); 
+        HttpSession session = req.getSession(); 
         /*PrintWriter out = resp.getWriter();*/
         if ("history".equals(action)) { 
             String url = "jdbc:postgresql://localhost/qqq";
     		String user = "a";
     		String password = "78459_ki";
     		try (Connection connection = DriverManager.getConnection(url, user, password);
-    				PreparedStatement statement = connection.prepareStatement("SELECT name, male, content, file, status, id, aaa FROM qqa ORDER BY id ASC");
-    				ResultSet results = statement.executeQuery()){
+    				PreparedStatement statement = connection.prepareStatement("SELECT name, male, content, file, status, id, aaa FROM qqa WHERE namae = ? ORDER BY id ASC")){
     			List<Inquiry> inquiries = Collections.synchronizedList(new ArrayList<>()); 
+    			String aoa = (String) session.getAttribute("namae2");
+    			statement.setString(1, aoa);
+    			ResultSet results = statement.executeQuery();
     			while (results.next()) {
     				String name = results.getString("name");
     				String male = results.getString("male");
@@ -121,7 +124,7 @@ IOException {
             }
         } else { 
             generateCaptcha(req); 
-            HttpSession session = req.getSession(); 
+            /*HttpSession session = req.getSession(); */
             String wa = (String) session.getAttribute("namae2");
             String url = "jdbc:postgresql://localhost/qqq";
     		String user = "a";
@@ -177,7 +180,7 @@ IOException {
                 String url = "jdbc:postgresql://localhost/qqq";
         		String user = "a";
         		String password = "78459_ki";
-        		String sql = "INSERT INTO qqa (name, male, content, file, filepart, aaa) VALUES (?, ?, ?, ?, ?, ?)";
+        		String sql = "INSERT INTO qqa (name, male, content, file, filepart, aaa, namae) VALUES (?, ?, ?, ?, ?, ?, ?)";
         		try (Connection connection = DriverManager.getConnection(url, user, password);
         				PreparedStatement statement = connection.prepareStatement(sql)){
         					statement.setString(1, inquiry.getName());
@@ -185,6 +188,10 @@ IOException {
         		            statement.setString(3, inquiry.getContent());
         		            statement.setString(4, inquiry.getAttachmentFileName());
         		            statement.setString(6, inquiry.getAaa());
+        		            String nata = (String) session.getAttribute("namae2");
+        		            req.setAttribute("nata", nata);
+        		            req.setAttribute("aa", "out");
+        		            statement.setString(7, nata);
         		            byte[] fileBytes = null;
         	                if (filePar != null && filePar.getSize() > 0) {
         	                    try (InputStream inputStream = filePar.getInputStream()) {

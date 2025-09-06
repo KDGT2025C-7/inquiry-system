@@ -5,7 +5,7 @@
 <head> 
     <meta charset="UTF-8"> 
     <title>お問い合わせ履歴</title> 
-    <link rel="stylesheet" href="../style.css"> 
+    <link rel="stylesheet" href="style.css"> 
 </head> 
 <body> 
     <div class="container"> 
@@ -50,7 +50,7 @@
                 </c:forEach> 
             </c:when> 
             <c:otherwise> 
-                <p>まだお問い合わせはありません。</p> 
+                <p>まだお問い合わせはありません。(ゲスト投稿は表示されません)</p> 
             </c:otherwise> 
         </c:choose> 
  
