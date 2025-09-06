@@ -69,4 +69,24 @@
     <servlet-name>nyusitu</servlet-name>
     <url-pattern>/nyusitu</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>taisitu</display-name>
+    <servlet-name>taisitu</servlet-name>
+    <servlet-class>com.example.inquiry.taisitu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>taisitu</servlet-name>
+    <url-pattern>/taisitu</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>password</display-name>
+    <servlet-name>password</servlet-name>
+    <servlet-class>com.example.inquiry.password</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>password</servlet-name>
+    <url-pattern>/password</url-pattern>
+  </servlet-mapping>
 </web-app>

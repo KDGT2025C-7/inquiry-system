@@ -12,9 +12,13 @@
 <body> 
 <div class="container"> 
     <h1>お問い合わせフォーム</h1> 
+    <c:if test="${sessionScope.pal == null}">
     <a href="../inquiry-system/touroku">登録</a>
+    <a href="../inquiry-system/nyusitu">入室</a>
+    </c:if>
     <c:if test="${sessionScope.pal == 'join'}">
     <a href="../inquiry-system/settei">設定</a>
+    <a href="../inquiry-system/taisitu">退室</a>
     </c:if>
     <form action="${inquiryUrl}" method="post" onsubmit="return validateForm()" enctype="multipart/form-data"> 
         <p> 
@@ -38,7 +42,7 @@
             <input type="file" id="attachment" name="attachment"> 
             <span class="error-message"><c:out value='${errorMessage}' /></span> 
         </p> 
-        <label for="newaaa">宛先:</label> 
+        <label for="status-${status.count}">宛先:</label> 
         <select id="status-${status.count}" name="newaaa"> 
                                 <option value="ヘルプデスク" selected>ヘルプデスク</option> 
                                 <option value="先生へ" >先生へ</option> 

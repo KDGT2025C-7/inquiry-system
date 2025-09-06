@@ -121,8 +121,39 @@ IOException {
             }
         } else { 
             generateCaptcha(req); 
-            RequestDispatcher rd = req.getRequestDispatcher("/index.jsp"); 
+            HttpSession session = req.getSession(); 
+            String wa = (String) session.getAttribute("namae2");
+            String url = "jdbc:postgresql://localhost/qqq";
+    		String user = "a";
+    		String password = "78459_ki";
+    		if (wa != null) {
+    		try (Connection connection = DriverManager.getConnection(url, user, password);
+    				PreparedStatement statement = connection.prepareStatement("SELECT name, mail FROM hito WHERE namae = ?")){
+    			statement.setString(1, wa);
+    			ResultSet results = statement.executeQuery();
+    			Inquiry inquiry = new Inquiry(); ;
+    		results.next();
+    		String name = results.getString("name");
+			String mail = results.getString("mail");
+			inquiry.setName(name);
+			inquiry.setEmail(mail);
+			req.setAttribute("inquiry", inquiry);
+			RequestDispatcher rd = req.getRequestDispatcher("/index.jsp"); 
             rd.forward(req, resp); 
+    		} catch (SQLException e) {
+    			generateCaptcha(req);
+                /*out.println("Database exception: " + e.getMessage());*/
+    			RequestDispatcher rd = req.getRequestDispatcher("/jsp/error.jsp");
+                rd.forward(req, resp);
+    		}catch (Exception e) {
+    			generateCaptcha(req);
+                /*out.println("Exception" + e.getMessage());*/
+    			RequestDispatcher rd = req.getRequestDispatcher("/jsp/error.jsp");
+                rd.forward(req, resp);
+            }
+    		}
+    		else { RequestDispatcher rd = req.getRequestDispatcher("/index.jsp"); 
+            rd.forward(req, resp); }
         } 
     } 
    /* if (file != null) {
