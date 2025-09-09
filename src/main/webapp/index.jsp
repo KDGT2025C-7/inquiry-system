@@ -20,6 +20,9 @@
     <a href="../inquiry-system/settei">設定</a>
     <a href="../inquiry-system/taisitu">退室</a>
     </c:if>
+    <c:if test="${sessionScope.op != 'ope0' && sessionScope.op != null}">
+    <a href="../inquiry-system/kanri">管理</a>
+    </c:if>
     <form action="${inquiryUrl}" method="post" onsubmit="return validateForm()" enctype="multipart/form-data"> 
         <p> 
             <label for="name">名前:</label> 

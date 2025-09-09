@@ -20,5 +20,6 @@
             <input type="submit" value="確認"> 
         </div> 
     </form>
+    <a href = "../inquiry-system/inquiry">戻る</a>
 </body>
 </html>

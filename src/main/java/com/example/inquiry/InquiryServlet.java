@@ -3,7 +3,6 @@ package com.example.inquiry;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -131,13 +130,34 @@ IOException {
     		String password = "78459_ki";
     		if (wa != null) {
     		try (Connection connection = DriverManager.getConnection(url, user, password);
-    				PreparedStatement statement = connection.prepareStatement("SELECT name, mail FROM hito WHERE namae = ?")){
+    				PreparedStatement statement = connection.prepareStatement("SELECT name, mail, ope FROM hito WHERE namae = ?")){
     			statement.setString(1, wa);
     			ResultSet results = statement.executeQuery();
-    			Inquiry inquiry = new Inquiry(); ;
+    			Inquiry inquiry = new Inquiry();
     		results.next();
     		String name = results.getString("name");
 			String mail = results.getString("mail");
+			String ope = results.getString("ope");
+			if(ope == null) {
+				session.setAttribute("op", "ope0");
+			}else {
+			if (ope.equals("123a5")) {
+			session.setAttribute("op", "ope");
+			}else if (ope.equals("123s5")) {
+				session.setAttribute("op", "ope2");
+			}else if (ope.equals("123d5")) {
+				session.setAttribute("op", "ope3");
+			}else if (ope.equals("123f5")) {
+				session.setAttribute("op", "ope4");
+			}else if (ope.equals("123g5")) {
+				session.setAttribute("op", "ope5");
+			}else if (ope.equals("123h5")) {
+				session.setAttribute("op", "ope6");
+			}else if (ope.equals("123j5")) {
+				session.setAttribute("op", "ope7");
+			}else {
+				session.setAttribute("op", "ope0");
+			}}
 			inquiry.setName(name);
 			inquiry.setEmail(mail);
 			req.setAttribute("inquiry", inquiry);
@@ -145,12 +165,13 @@ IOException {
             rd.forward(req, resp); 
     		} catch (SQLException e) {
     			generateCaptcha(req);
-                /*out.println("Database exception: " + e.getMessage());*/
+    			req.setAttribute("errorMessage", "データベースエラー: " + e.getMessage());
     			RequestDispatcher rd = req.getRequestDispatcher("/jsp/error.jsp");
                 rd.forward(req, resp);
     		}catch (Exception e) {
     			generateCaptcha(req);
                 /*out.println("Exception" + e.getMessage());*/
+    			req.setAttribute("errorMessage", "データベースエラー: " + e.getMessage());
     			RequestDispatcher rd = req.getRequestDispatcher("/jsp/error.jsp");
                 rd.forward(req, resp);
             }
@@ -172,7 +193,7 @@ IOException {
         req.setCharacterEncoding("UTF-8"); 
         String action = req.getParameter("action"); 
         HttpSession session = req.getSession(); 
-        PrintWriter out = resp.getWriter();
+        /*PrintWriter out = resp.getWriter();*/
         if (action != null && action.equals("complete")) { 
             Inquiry inquiry = (Inquiry) session.getAttribute("inquiry"); 
             Part filePar = inquiry.getFileNamePart();
@@ -180,7 +201,7 @@ IOException {
                 String url = "jdbc:postgresql://localhost/qqq";
         		String user = "a";
         		String password = "78459_ki";
-        		String sql = "INSERT INTO qqa (name, male, content, file, filepart, aaa, namae) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        		String sql = "INSERT INTO qqa (name, male, content, file, filepart, aaa, namae, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         		try (Connection connection = DriverManager.getConnection(url, user, password);
         				PreparedStatement statement = connection.prepareStatement(sql)){
         					statement.setString(1, inquiry.getName());
@@ -188,6 +209,7 @@ IOException {
         		            statement.setString(3, inquiry.getContent());
         		            statement.setString(4, inquiry.getAttachmentFileName());
         		            statement.setString(6, inquiry.getAaa());
+        		            statement.setString(8, "新規");
         		            String nata = (String) session.getAttribute("namae2");
         		            req.setAttribute("nata", nata);
         		            req.setAttribute("aa", "out");

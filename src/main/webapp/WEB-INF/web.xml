@@ -89,4 +89,24 @@
     <servlet-name>password</servlet-name>
     <url-pattern>/password</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>kanri</display-name>
+    <servlet-name>kanri</servlet-name>
+    <servlet-class>com.example.inquiry.kanri</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>kanri</servlet-name>
+    <url-pattern>/kanri</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>csv</display-name>
+    <servlet-name>csv</servlet-name>
+    <servlet-class>com.example.inquiry.csv</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>csv</servlet-name>
+    <url-pattern>/csv</url-pattern>
+  </servlet-mapping>
 </web-app>

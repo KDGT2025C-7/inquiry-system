@@ -51,7 +51,7 @@
             <input type="submit" value="確認"> 
         </div> 
     </form> 
-    
+    <a href = "../inquiry-system/inquiry">戻る</a>
     <script> 
     const waoonList = [
         <c:forEach var="namae" items="${waoon}" varStatus="status">

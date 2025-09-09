@@ -31,6 +31,7 @@ public class taisitu extends HttpServlet {
 		HttpSession session = request.getSession(); 
 		session.removeAttribute("pal");
 		session.removeAttribute("namae2");
+		session.removeAttribute("op");
 		response.sendRedirect(request.getContextPath() + "/inquiry");
 	}
 
