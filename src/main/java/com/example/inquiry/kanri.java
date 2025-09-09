@@ -123,6 +123,7 @@ public class kanri extends HttpServlet {
 		// TODO Auto-generated method stub
 		 int index = Integer.parseInt(req.getParameter("index")); 
          String newStatus = req.getParameter("newStatus"); 
+         String returnAnchor = req.getParameter("returnAnchor");
         String url = "jdbc:postgresql://localhost/qqq";
  		String user = "a";
  		String password = "78459_ki";
@@ -132,7 +133,7 @@ public class kanri extends HttpServlet {
  				statement.setString(1,  newStatus);
  				statement.setInt(2, index);
  		            statement.executeUpdate();
- 		           resp.sendRedirect("kanri"); 
+ 		           resp.sendRedirect("kanri#" + returnAnchor); 
  		} catch (SQLException e) {
  			req.setAttribute("errorMessage", "データベースエラー: " + e.getMessage());
              RequestDispatcher rd = req.getRequestDispatcher("/jsp/error.jsp");

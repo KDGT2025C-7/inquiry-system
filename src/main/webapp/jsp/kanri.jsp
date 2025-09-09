@@ -13,7 +13,7 @@
 <c:choose> 
             <c:when test="${not empty inquiries}"> 
                 <c:forEach var="inquiry" items="${inquiries}" varStatus="status"> 
-                    <div class="inquiry-item">
+                    <div class="inquiry-item" id="inquiry-${inquiry.qqaKey}">
                         <h3>お問い合わせ #${status.count}</h3> 
                         <p><strong>名前:</strong> <c:out value="${inquiry.name}"/></p> 
                         <p><strong>メールアドレス:</strong> <c:out value="${inquiry.email}"/></p> 
@@ -36,6 +36,7 @@
                         <form action="../inquiry-system/kanri" method="post" style="display:inline;"> 
                             <input type="hidden" name="action" value="updateStatus"> 
                             <input type="hidden" name="index" value="${inquiry.qqaKey}"> 
+                            <input type="hidden" name="returnAnchor" value="inquiry-${inquiry.qqaKey}">
                             <label for="status-${status.count}">ステータス変更:</label> 
                             <select id="status-${status.count}" name="newStatus"> 
                                 <option value="新規" <c:if test="${inquiry.status == '新規'}">selected</c:if>>新規</option> 
