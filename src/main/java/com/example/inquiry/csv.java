@@ -1,5 +1,6 @@
 package com.example.inquiry;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,9 +35,17 @@ public class csv extends HttpServlet {
             String url = "jdbc:postgresql://localhost/qqq";
     		String user = "a";
     		String password = "78459_ki";
+    		String aaaaa = req.getParameter("aaaaa");
+    		String tempDir = "/tmp";
+            String filePath = tempDir + File.separator + aaaaa + "_qqa.csv";
+
+            if (aaaaa == null || aaaaa.trim().isEmpty()) {
+                aaaaa = "export"; 
+            }
     		try (Connection connection = DriverManager.getConnection(url, user, password);
     				Statement statement = connection.createStatement()){
     			String sql = "COPY qqa TO '/Users/a/aaaaa/qqa.csv' WITH (FORMAT CSV, HEADER TRUE, DELIMITER ',')";
+    			
                 statement.execute(sql);
     			resp.sendRedirect("kanri");
     		} catch (SQLException e) {
