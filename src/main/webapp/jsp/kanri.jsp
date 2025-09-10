@@ -9,11 +9,16 @@
 </head>
 <body>
 <a href = "../inquiry-system/inquiry">戻る</a>
+<c:if test="${sessionScope.op == 'ope7'}">
 <a href = "../inquiry-system/csv">csv(自分a用)</a>
 <form action="../inquiry-system/csv" method="post" style="display:inline;"> 
-                            <input type="text" name="aaaa" value="COPY qqa TO '任意の保存先' WITH (FORMAT CSV, HEADER TRUE, DELIMITER ',')">
+                            <select name="aoaoa"> 
+                                <option value="a" selected>qqa</option> 
+                                <option value="i" >hito</option> 
+                            </select> 
                             <input type="submit" value="コピー" class="button secondary"> 
  </form> 
+ </c:if>
 <c:choose> 
             <c:when test="${not empty inquiries}"> 
                 <c:forEach var="inquiry" items="${inquiries}" varStatus="status"> 

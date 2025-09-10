@@ -5,16 +5,15 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class csv
@@ -35,18 +34,36 @@ public class csv extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		String url = "jdbc:postgresql://localhost/qqq";
         String user = "a";
         String password = "78459_ki";
-
+        String aString = req.getParameter("aoaoa");
         resp.setContentType("text/csv");
+        if (aString.equals("a")) {
         resp.setHeader("Content-Disposition", "attachment; filename=\"qqa_export.csv\"");
+        }else if (aString.equals("i")) {
+        	resp.setHeader("Content-Disposition", "attachment; filename=\"hito_export.csv\"");
+        }
         PrintWriter out = resp.getWriter();
-
+        HttpSession session = req.getSession();
+        String oString = (String) session.getAttribute("op");
+        if (oString.equals("ope7")) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             CopyManager copyManager = new CopyManager((BaseConnection) connection);
-            String sql = "COPY qqa TO STDOUT WITH (FORMAT CSV, HEADER TRUE, DELIMITER ',')";
-            
+            String sql = "a";
+            if (aString.equals("a")) {
+            sql = "COPY qqa TO STDOUT WITH (FORMAT CSV, HEADER TRUE, DELIMITER ',')";
+            }else if (aString.equals("i")) {
+            	sql = "COPY hito TO STDOUT WITH (FORMAT CSV, HEADER TRUE, DELIMITER ',')";
+            }
             copyManager.copyOut(sql, out);
             out.flush();
 
@@ -59,37 +76,9 @@ public class csv extends HttpServlet {
         } finally {
             if (out != null) out.close();
         }
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String url = "jdbc:postgresql://localhost/qqq";
-		String user = "a";
-		String password = "78459_ki";
-		try (Connection connection = DriverManager.getConnection(url, user, password);
-				Statement statement = connection.createStatement()){
-			String oaa = req.getParameter("aaaa");
-			String sql = oaa;
-			
-            statement.execute(sql);
-			resp.sendRedirect("kanri");
-		} catch (SQLException e) {
-			/*generateCaptcha(req);*/
-            /*out.println("Database exception: " + e.getMessage());*/
-			req.setAttribute("errorMessage", "データベースエラー: " + e.getMessage());
-            RequestDispatcher rd = req.getRequestDispatcher("/jsp/error.jsp");
-            rd.forward(req, resp);
-		}catch (Exception e) {
-			/*generateCaptcha(req);*/
-            /*out.println("Exception" + e.getMessage());*/
-			req.setAttribute("errorMessage", "予期せぬエラー: " + e.getMessage());
-            RequestDispatcher rd = req.getRequestDispatcher("/jsp/error.jsp");
-            rd.forward(req, resp);
-        } 
+        }else {
+        	resp.sendRedirect("kanri");
+        }
 	}
 
 }
